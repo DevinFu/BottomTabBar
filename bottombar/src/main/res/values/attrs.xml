@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomTab">
+        <attr name="android:text"/>
+        <attr name="android:textColor"/>
+        <attr name="android:drawableTop"/>
+        <attr name="android:textSize"/>
+    </declare-styleable>
+</resources>

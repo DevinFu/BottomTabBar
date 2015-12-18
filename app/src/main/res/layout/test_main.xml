@@ -1,0 +1,31 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <RadioButton
+        android:id="@+id/tab_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:button="@null"
+        android:drawablePadding="1dp"
+        android:gravity="center"
+        android:textSize="11sp"
+        />
+
+    <TextView
+        android:id="@+id/tab_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:layout_toRightOf="@+id/tab_btn"
+        android:layout_marginLeft="-5dp"
+        android:textSize="11sp"
+        android:minHeight="6dp"
+        android:singleLine="true"
+
+        />
+
+</merge>
