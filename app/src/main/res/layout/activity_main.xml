@@ -46,7 +46,7 @@
         android:background="@drawable/list_vertical_root_bg"
         android:paddingTop="5dp"
         >
-        <ui.kale.bottomtabbar.TestView
+        <kale.ui.view.BottomTab
             android:id="@+id/tab_01"
             android:layout_width="0dp"
             android:layout_weight="1"

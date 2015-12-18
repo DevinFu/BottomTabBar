@@ -12,7 +12,7 @@ public interface BottomTabImpl extends Checkable{
      * Interface definition for a callback to be invoked when the checked state
      * of a compound button changed.
      */
-    public static interface OnCheckedChangeListener {
+    interface OnCheckedChangeListener {
         /**
          * Called when the checked state of a compound button has changed.
          *
@@ -22,15 +22,7 @@ public interface BottomTabImpl extends Checkable{
         void onCheckedChanged(BottomTabImpl buttonView, boolean isChecked);
     }
 
-    public int getId();
-
-    /**
-     * Register a callback to be invoked when the checked state of this button
-     * changes.
-     *
-     * @param listener the callback to call on checked state change
-     */
-   // public void setOnCheckedChangeListener(OnCheckedChangeListener listener);
+    int getId();
 
     /**
      * Register a callback to be invoked when the checked state of this button

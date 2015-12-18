@@ -22,18 +22,18 @@ public class MainActivity extends AppCompatActivity {
         
 
         BottomTab tab01 = (BottomTab) root.getChildAt(0);
-        tab01.getHint().setBackgroundResource(R.drawable.red_hint); // 设置提示红点的背景
+        tab01.getHintTextView().setBackgroundResource(R.drawable.red_hint); // 设置提示红点的背景
         tab01.setHint("99+"); // 设置提示红点上的文字
-        tab01.getHint().setTextColor(0xffffffff); // 设置提示红点上文字的颜色
+        tab01.getHintTextView().setTextColor(0xffffffff); // 设置提示红点上文字的颜色
 
-        tab02.getHint().setBackgroundResource(R.drawable.red_hint);
-        tab02.getHint().setTextSize(6);
+        tab02.getHintTextView().setBackgroundResource(R.drawable.red_hint);
+        tab02.getHintTextView().setTextSize(6);
         
         tab03.setHint(1314520);
 
         BottomTab tab04 = (BottomTab) root.getChildAt(3);
         tab04.setTabDrawable(R.drawable.abc_btn_check_material) // 设置按钮的图片
-        .setTabText("自定义") // 设置按钮下面的文字
+        .setTabTitle("自定义") // 设置按钮下面的文字
         .setHint(520); // 设置提示红点部分的文字
 
         tab01.setChecked(true);
