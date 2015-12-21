@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import kale.kale.bottomtab.BottomTabImpl;
 
+@SuppressWarnings("unused")
 public class BottomTabGroup extends LinearLayout {
 
     // holds the checked id; the selection is empty by default
@@ -41,6 +42,43 @@ public class BottomTabGroup extends LinearLayout {
         setOrientation(HORIZONTAL);
         init();
     }
+
+    public void check(int id) {
+        // don't even bother
+        if (id != -1 && (id == mCheckedId)) {
+            return;
+        }
+
+        if (mCheckedId != -1) {
+            setCheckedStateForView(mCheckedId, false);
+        }
+
+        if (id != -1) {
+            setCheckedStateForView(id, true);
+        }
+
+        setCheckedId(id);
+    }
+
+    public int getCheckedChildId() {
+        return mCheckedId;
+    }
+
+
+    public void clearCheck() {
+        check(-1);
+    }
+
+    /**
+     * <p>Register a callback to be invoked when the checked radio button
+     * changes in this group.</p>
+     *
+     * @param listener the callback to call on checked state change
+     */
+    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
+        mOnCheckedChangeListener = listener;
+    }
+
 
     private void init() {
         mChildOnCheckedChangeListener = new CheckedStateTracker();
@@ -90,30 +128,13 @@ public class BottomTabGroup extends LinearLayout {
     }
 
 
-    public void check(int id) {
-        // don't even bother
-        if (id != -1 && (id == mCheckedId)) {
-            return;
-        }
-
-        if (mCheckedId != -1) {
-            setCheckedStateForView(mCheckedId, false);
-        }
-
-        if (id != -1) {
-            setCheckedStateForView(id, true);
-        }
-
-        setCheckedId(id);
-    }
-    
     private void setCheckedId(int id) {
         mCheckedId = id;
         if (mOnCheckedChangeListener != null) {
             mOnCheckedChangeListener.onCheckedChanged(this, mCheckedId);
         }
     }
-    
+
     private void setCheckedStateForView(int viewId, boolean checked) {
         View checkedView = findViewById(viewId);
         if (checkedView != null && checkedView instanceof BottomTabImpl) {
@@ -121,25 +142,7 @@ public class BottomTabGroup extends LinearLayout {
         }
     }
 
-    public int getCheckedChildId() {
-        return mCheckedId;
-    }
 
-
-    public void clearCheck() {
-        check(-1);
-    }
-
-    /**
-     * <p>Register a callback to be invoked when the checked radio button
-     * changes in this group.</p>
-     *
-     * @param listener the callback to call on checked state change
-     */
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        mOnCheckedChangeListener = listener;
-    }
-    
     /**
      * {@inheritDoc}
      */
@@ -158,9 +161,10 @@ public class BottomTabGroup extends LinearLayout {
 
     @Override
     protected LinearLayout.LayoutParams generateDefaultLayoutParams() {
-        return new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        return new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
     }
-    
+
     public static class LayoutParams extends LinearLayout.LayoutParams {
         /**
          * {@inheritDoc}
@@ -203,36 +207,36 @@ public class BottomTabGroup extends LinearLayout {
          * height to  {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}
          * when not specified in the XML file.</p>
          *
-         * @param a the styled attributes set
-         * @param widthAttr the width attribute to fetch
+         * @param a          the styled attributes set
+         * @param widthAttr  the width attribute to fetch
          * @param heightAttr the height attribute to fetch
          */
         @Override
-        protected void setBaseAttributes(TypedArray a,
-                int widthAttr, int heightAttr) {
+        protected void setBaseAttributes(TypedArray a, int widthAttr, int heightAttr) {
 
             if (a.hasValue(widthAttr)) {
                 width = a.getLayoutDimension(widthAttr, "layout_width");
-            } else {
+            }
+            else {
                 width = WRAP_CONTENT;
             }
 
             if (a.hasValue(heightAttr)) {
                 height = a.getLayoutDimension(heightAttr, "layout_height");
-            } else {
+            }
+            else {
                 height = WRAP_CONTENT;
             }
         }
     }
-    
-   
+
+
     /**
      * <p>Interface definition for a callback to be invoked when the checked
      * subView changed in this root view.</p>
      */
     public interface OnCheckedChangeListener {
-
-        public void onCheckedChanged(BottomTabGroup root, int checkedId);
+        void onCheckedChanged(BottomTabGroup root, int checkedId);
     }
 
     private class CheckedStateTracker implements BottomTabImpl.OnCheckedChangeListener {
@@ -260,8 +264,8 @@ public class BottomTabGroup extends LinearLayout {
      * to another listener. This allows the table layout to set its own internal
      * hierarchy change listener without preventing the user to setup his.</p>
      */
-    private class PassThroughHierarchyChangeListener implements
-            ViewGroup.OnHierarchyChangeListener {
+    private class PassThroughHierarchyChangeListener implements ViewGroup.OnHierarchyChangeListener {
+
         private ViewGroup.OnHierarchyChangeListener mOnHierarchyChangeListener;
 
         /**
@@ -275,8 +279,7 @@ public class BottomTabGroup extends LinearLayout {
                     id = View.generateViewId();
                     child.setId(id);
                 }
-                ((BottomTabImpl) child).setOnCheckedChangeWidgetListener(
-                        mChildOnCheckedChangeListener);
+                ((BottomTabImpl) child).setOnCheckedChangeWidgetListener(mChildOnCheckedChangeListener);
             }
 
             if (mOnHierarchyChangeListener != null) {
