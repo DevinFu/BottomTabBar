@@ -9,10 +9,6 @@ import android.widget.LinearLayout;
 
 import kale.kale.bottomtab.BottomTabImpl;
 
-/**
- * @author Jack Tony
- * @date 2015/6/7
- */
 public class BottomTabGroup extends LinearLayout {
 
     // holds the checked id; the selection is empty by default

@@ -2,11 +2,7 @@ package kale.kale.bottomtab;
 
 import android.widget.Checkable;
 
-/**
- * @author Jack Tony
- * @date 2015/6/7
- */
-public interface BottomTabImpl extends Checkable{
+public interface BottomTabImpl extends Checkable {
 
     /**
      * Interface definition for a callback to be invoked when the checked state
@@ -29,7 +25,6 @@ public interface BottomTabImpl extends Checkable{
      * changes. This callback is used for internal purpose only.
      *
      * @param listener the callback to call on checked state change
-     * @hide
      */
-    public void setOnCheckedChangeWidgetListener(OnCheckedChangeListener listener);
+    void setOnCheckedChangeWidgetListener(OnCheckedChangeListener listener);
 }

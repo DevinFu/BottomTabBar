@@ -126,7 +126,6 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
      * changes. This callback is used for internal purpose only.
      *
      * @param listener the callback to call on checked state change
-     * @hide
      * @deprecated 请勿使用测方法，此方法本身为内部方法
      */
     @Override
