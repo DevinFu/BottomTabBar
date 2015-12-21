@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:text="tab01"
             android:textColor="@color/main_bottombar_text_selector"
+            android:textSize="12sp"
             android:drawableTop="@drawable/main_bottombar_icon_home_selector"/>
         <kale.ui.view.BottomTab
             android:id="@+id/tab_02"

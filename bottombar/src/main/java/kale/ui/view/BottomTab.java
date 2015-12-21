@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,8 @@ import kale.bottombar.R;
 import kale.kale.bottomtab.BottomTabImpl;
 
 public class BottomTab extends LinearLayout implements BottomTabImpl {
+
+    private final static int DEFAULT_TITLE_TEXT_SIZE = 36;
 
     private CharSequence mTabTitle;
     private int mTabTitleSize;
@@ -36,7 +39,7 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BottomTab);
         mTabTextColors = a.getColorStateList(R.styleable.BottomTab_android_textColor);
         mTabTitle = a.getText(R.styleable.BottomTab_android_text);
-        mTabTitleSize = a.getDimensionPixelSize(R.styleable.BottomTab_android_textSize, 16);
+        mTabTitleSize = a.getDimensionPixelSize(R.styleable.BottomTab_android_textSize, DEFAULT_TITLE_TEXT_SIZE);
         mTabDrawable = a.getDrawable(R.styleable.BottomTab_android_drawableTop);
         a.recycle();
 
@@ -53,7 +56,7 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
 
         mRivTabIcon.setImageDrawable(mTabDrawable);
         mTvTabTitle.setText(mTabTitle);
-        mTvTabTitle.setTextSize(mTabTitleSize);
+        mTvTabTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabTitleSize);
         if (mTabTextColors != null) {
             mTvTabTitle.setTextColor(mTabTextColors);
         }
