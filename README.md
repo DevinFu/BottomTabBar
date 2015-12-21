@@ -1,4 +1,9 @@
 # BottomTabBar
+说明：此控件是在Jack Tony: <developer_kale@.com>的BottomTabBar项目基础上进行的改造，原项目地址：<https://github.com/tianzhijiexian/BottomTabBar>。在此表示感谢。
+ 主要是由于原项目中，tab采用drawable top 和 radio button形式，无法灵活控制drawable的大小及drawable与文字之间的间距，现采用自定义的RadioImageView实现tab上的drawable，RadioTextView实现tab的标题。 
+
+## 以下说明引用自原项目
+
 底部tab切换栏。完全模仿了RadioGroup的机制，提供了可以扩展的接口  
 ![image](./demoPic/demo01.png)   
 `BottomTabGroup`完全模仿了RadioGroup的机制，你可以理解为它是`RadioGroup`的增强版本，它内部的view不再仅限于`RadioButton`了，而是实现了`BottomTabImpl`这个接口的的任何view。这样我们可以很容易的用自定义控件来做类似RadioButton的效果了，自然而然就能有更多的扩展性。  
