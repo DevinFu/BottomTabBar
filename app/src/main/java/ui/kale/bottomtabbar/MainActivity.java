@@ -37,32 +37,6 @@ public class MainActivity extends AppCompatActivity {
         .setHint(520); // 设置提示红点部分的文字
 
         tab01.setChecked(true);
-        tab01.setOnCheckedChangeListener(new BottomTabImpl.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(BottomTabImpl buttonView, boolean isChecked) {
-                Log.d("tab", "tab01" + isChecked);
-            }
-        });
-
-        tab02.setOnCheckedChangeListener(new BottomTabImpl.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(BottomTabImpl buttonView, boolean isChecked) {
-                Log.d("tab", "tab02" + isChecked);
-            }
-        });
-
-        tab03.setOnCheckedChangeListener(new BottomTabImpl.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(BottomTabImpl buttonView, boolean isChecked) {
-                Log.d("tab", "tab03" + isChecked);
-            }
-        });
-        tab04.setOnCheckedChangeListener(new BottomTabImpl.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(BottomTabImpl buttonView, boolean isChecked) {
-                Log.d("tab", "tab04" + isChecked);
-            }
-        });
 
         root.setOnCheckedChangeListener(new BottomTabGroup.OnCheckedChangeListener() {
             @Override

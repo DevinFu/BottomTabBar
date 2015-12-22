@@ -23,11 +23,11 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
 
     private TextView mTvTabHint;
     private RadioImageView mRivTabIcon;
-    private RadioTextView mTvTabTitle;
+    private RadioTextView mRtvTabTitle;
+
+    private boolean mChecked = false;
 
     private OnCheckedChangeListener mOnCheckedChangeWidgetListener;
-
-    private OnCheckedChangeListener mOnCheckedChangeListener;
 
     public BottomTab(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,29 +52,28 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
 
         mTvTabHint = (TextView) findViewById(R.id.tab_hint);
         mRivTabIcon = (RadioImageView) findViewById(R.id.tab_icon);
-        mTvTabTitle = (RadioTextView) findViewById(R.id.tab_title);
+        mRtvTabTitle = (RadioTextView) findViewById(R.id.tab_title);
 
         mRivTabIcon.setImageDrawable(mTabDrawable);
-        mTvTabTitle.setText(mTabTitle);
-        mTvTabTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabTitleSize);
+        mRtvTabTitle.setText(mTabTitle);
+        mRtvTabTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabTitleSize);
         if (mTabTextColors != null) {
-            mTvTabTitle.setTextColor(mTabTextColors);
+            mRtvTabTitle.setTextColor(mTabTextColors);
         }
 
-        mRivTabIcon.setOnCheckedChangeListener(new RadioImageView.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioImageView pView, boolean isChecked) {
-                mChecked = isChecked;
-                mTvTabHint.refreshDrawableState();
-                mTvTabTitle.setChecked(isChecked);
-                mOnCheckedChangeWidgetListener.onCheckedChanged(BottomTab.this, isChecked);
-                if (mOnCheckedChangeListener != null) {
-                    mOnCheckedChangeListener.onCheckedChanged(BottomTab.this, isChecked);
-                }
-            }
-        });
+        mRivTabIcon.setClickable(false);
+        mRtvTabTitle.setClickable(false);
+        this.setClickable(true);
     }
 
+    @Override
+    public boolean performClick() {
+        if (!mChecked) {
+            setChecked(true);
+            return true;
+        }
+        return super.performClick();
+    }
 
     public int getLayoutRes() {
         return R.layout.bottom_tab_main;
@@ -90,7 +89,7 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
     }
 
     public BottomTab setTabTitle(String text) {
-        mTvTabTitle.setText(text);
+        mRtvTabTitle.setText(text);
         return this;
     }
 
@@ -116,16 +115,6 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
 
     /**
      * Register a callback to be invoked when the checked state of this button
-     * changes.
-     *
-     * @param listener the callback to call on checked state change
-     */
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        mOnCheckedChangeListener = listener;
-    }
-
-    /**
-     * Register a callback to be invoked when the checked state of this button
      * changes. This callback is used for internal purpose only.
      *
      * @param listener the callback to call on checked state change
@@ -136,13 +125,14 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
         mOnCheckedChangeWidgetListener = listener;
     }
 
-    private boolean mChecked = false;
-
     @Override
     public void setChecked(boolean checked) {
         if (mChecked != checked) {
             mChecked = checked;
             mRivTabIcon.setChecked(mChecked);
+            mRtvTabTitle.setChecked(mChecked);
+            mTvTabHint.refreshDrawableState();
+            mOnCheckedChangeWidgetListener.onCheckedChanged(this, checked);
         }
     }
 
@@ -153,6 +143,6 @@ public class BottomTab extends LinearLayout implements BottomTabImpl {
 
     @Override
     public void toggle() {
-        setChecked(!mChecked);
+//        setChecked(!mChecked);
     }
 }

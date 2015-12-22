@@ -2,15 +2,20 @@ package kale.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import kale.kale.bottomtab.BottomTabImpl;
 
 @SuppressWarnings("unused")
 public class BottomTabGroup extends LinearLayout {
+
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     // holds the checked id; the selection is empty by default
     private int mCheckedId = -1;
@@ -20,70 +25,51 @@ public class BottomTabGroup extends LinearLayout {
 
     // when true, mOnCheckedChangeListener discards events
     private boolean mProtectFromCheckedChange = false;
-
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
     private PassThroughHierarchyChangeListener mPassThroughListener;
 
-    /**
-     * {@inheritDoc}
-     */
     public BottomTabGroup(Context context) {
-        super(context);
-        setOrientation(HORIZONTAL);
-        init();
+        this(context, null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public BottomTabGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(HORIZONTAL);
-        init();
+        this.init();
+    }
+
+    private void init() {
+        super.setOrientation(HORIZONTAL);
+        mChildOnCheckedChangeListener = new CheckedStateTracker();
+
+        mPassThroughListener = new PassThroughHierarchyChangeListener();
+        super.setOnHierarchyChangeListener(mPassThroughListener);
     }
 
     public void check(int id) {
-        // don't even bother
-        if (id != -1 && (id == mCheckedId)) {
-            return;
-        }
-
-        if (mCheckedId != -1) {
-            setCheckedStateForView(mCheckedId, false);
-        }
-
-        if (id != -1) {
+        if (id != -1 && id != mCheckedId) {
+            clearCheck();
             setCheckedStateForView(id, true);
+            setCheckedId(id);
         }
-
-        setCheckedId(id);
     }
 
     public int getCheckedChildId() {
         return mCheckedId;
     }
 
-
     public void clearCheck() {
-        check(-1);
+        if (mCheckedId != -1) setCheckedStateForView(mCheckedId, false);
     }
 
     /**
-     * <p>Register a callback to be invoked when the checked radio button
-     * changes in this group.</p>
+     * Register a callback to be invoked when the checked radio button
+     * changes in this group.
      *
      * @param listener the callback to call on checked state change
      */
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
         mOnCheckedChangeListener = listener;
-    }
-
-
-    private void init() {
-        mChildOnCheckedChangeListener = new CheckedStateTracker();
-        mPassThroughListener = new PassThroughHierarchyChangeListener();
-        super.setOnHierarchyChangeListener(mPassThroughListener);
     }
 
     /**
@@ -141,7 +127,6 @@ public class BottomTabGroup extends LinearLayout {
             ((BottomTabImpl) checkedView).setChecked(checked);
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -263,6 +248,12 @@ public class BottomTabGroup extends LinearLayout {
      * <p>A pass-through listener acts upon the events and dispatches them
      * to another listener. This allows the table layout to set its own internal
      * hierarchy change listener without preventing the user to setup his.</p>
+     * <p>
+     * 此监听器是为了拦截view的添加和移除事件.强制将OnHierarchyChangeListener设置为mPassThroughListener.
+     * 外部通过{@link BottomTabGroup#setOnHierarchyChangeListener(OnHierarchyChangeListener)}设置的
+     * OnHierarchyChangeListener将成为PassThroughHierarchyChangeListener的成员变量,通过PassThroughHierarchyChangeListener
+     * 手动调用
+     * </p>
      */
     private class PassThroughHierarchyChangeListener implements ViewGroup.OnHierarchyChangeListener {
 
@@ -276,15 +267,15 @@ public class BottomTabGroup extends LinearLayout {
                 int id = child.getId();
                 // generates an id if it's missing
                 if (id == View.NO_ID) {
-                    id = View.generateViewId();
+                    id = generateViewId();
                     child.setId(id);
                 }
                 ((BottomTabImpl) child).setOnCheckedChangeWidgetListener(mChildOnCheckedChangeListener);
             }
 
-            if (mOnHierarchyChangeListener != null) {
+            //手动调用外部设置的OnHierarchyChangeListener
+            if (mOnHierarchyChangeListener != null)
                 mOnHierarchyChangeListener.onChildViewAdded(parent, child);
-            }
         }
 
         /**
@@ -295,9 +286,27 @@ public class BottomTabGroup extends LinearLayout {
                 ((BottomTabImpl) child).setOnCheckedChangeWidgetListener(null);
             }
 
-            if (mOnHierarchyChangeListener != null) {
+            //手动调用外部设置的OnHierarchyChangeListener
+            if (mOnHierarchyChangeListener != null)
                 mOnHierarchyChangeListener.onChildViewRemoved(parent, child);
+        }
+    }
+
+    public static int generateViewId() {
+        if (Build.VERSION.SDK_INT < 17) {
+            for (; ; ) {
+                final int result = sNextGeneratedId.get();
+                // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+                int newValue = result + 1;
+                if (newValue > 0x00FFFFFF)
+                    newValue = 1; // Roll over to 1, not 0.
+                if (sNextGeneratedId.compareAndSet(result, newValue)) {
+                    return result;
+                }
             }
+        }
+        else {
+            return generateViewId();
         }
     }
 }
