@@ -1,4 +1,4 @@
-package kale.ui.view;
+package kale.bottomtab.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import kale.kale.bottomtab.BottomTabImpl;
+import kale.bottomtab.BottomTabImpl;
 
 @SuppressWarnings("unused")
 public class BottomTabGroup extends LinearLayout {

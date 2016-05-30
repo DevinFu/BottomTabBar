@@ -1,11 +1,11 @@
-package kale.ui.view;
+package kale.bottomtab.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-public class RadioImageView extends ImageView implements Checkable {
+public class RadioTextView extends TextView implements Checkable {
 
     private boolean mChecked = false;
 
@@ -13,7 +13,7 @@ public class RadioImageView extends ImageView implements Checkable {
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
     public interface OnCheckedChangeListener {
-        void onCheckedChanged(RadioImageView pView, boolean isChecked);
+        void onCheckedChanged(RadioTextView pView, boolean isChecked);
     }
 
     /**
@@ -22,15 +22,15 @@ public class RadioImageView extends ImageView implements Checkable {
      */
     int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
 
-    public RadioImageView(Context context) {
+    public RadioTextView(Context context) {
         this(context, null);
     }
 
-    public RadioImageView(Context context, AttributeSet attrs) {
+    public RadioTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RadioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RadioTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.init();
     }
@@ -45,7 +45,6 @@ public class RadioImageView extends ImageView implements Checkable {
         if (mChecked != checked) {
             mChecked = checked;
             refreshDrawableState();
-//            this.setScaleType(ScaleType.CENTER_INSIDE);
         }
 
         if (mBroadcasting)
@@ -102,4 +101,6 @@ public class RadioImageView extends ImageView implements Checkable {
         }
         return drawableState;
     }
+
+
 }

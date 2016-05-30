@@ -1,4 +1,4 @@
-package kale.kale.bottomtab;
+package kale.bottomtab;
 
 import android.widget.Checkable;
 

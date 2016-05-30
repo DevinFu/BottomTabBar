@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BottomTab">
-        <attr name="android:text"/>
-        <attr name="android:textColor"/>
-        <attr name="android:drawableTop"/>
-        <attr name="android:textSize"/>
+        <attr name="drawableTop" format="reference"/>
+        <attr name="tabText" format="string|reference"/>
+        <attr name="tabTextColor" format="color|reference"/>
+        <attr name="tabTextSize" format="dimension|reference"/>
+        <attr name="hintText" format="string|reference"/>
+        <attr name="hintTextColor" format="color|reference"/>
+        <attr name="hintTextSize" format="dimension|reference"/>
+        <attr name="hintTextBackground" format="reference"/>
+        <attr name="hintEnable" format="boolean"/>
+        <attr name="verticalSpace" format="dimension|reference"/>
     </declare-styleable>
 </resources>

@@ -1,88 +1,91 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/white"
-    android:paddingTop="20dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingTop="20dp"
+                tools:context=".MainActivity"
     >
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/red_hint"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="12356"
-        android:textSize="11sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/red_hint"
         android:singleLine="true"
+        android:text="12356"
+        android:textColor="#ffffff"
 
-        android:id="@+id/textView"
+        android:textSize="11sp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:background="@drawable/red_hint"
-        android:singleLine="true"
-        android:textSize="6dp"
-        android:layout_marginTop="26dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/red_hint"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:singleLine="true"
+        android:textSize="6dp"
         />
-    
-    <kale.ui.view.BottomTabGroup
+
+    <kale.bottomtab.view.BottomTabGroup
         android:id="@+id/bottom_bar_root"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:orientation="horizontal"
         android:background="@drawable/list_vertical_root_bg"
+        android:orientation="horizontal"
         android:paddingTop="5dp"
         >
-        <kale.ui.view.BottomTab
+
+        <kale.bottomtab.view.BottomTab
             android:id="@+id/tab_01"
+            style="@style/bottomTab"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="tab01"
-            android:textColor="@color/main_bottombar_text_selector"
-            android:textSize="12sp"
-            android:drawableTop="@drawable/main_bottombar_icon_home_selector"/>
-        <kale.ui.view.BottomTab
+            android:layout_weight="1"
+            app:drawableTop="@drawable/main_bottombar_icon_home_selector"
+            app:tabText="tab01"/>
+
+        <kale.bottomtab.view.BottomTab
             android:id="@+id/tab_02"
+            style="@style/bottomTab"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="tab02"
-            android:textColor="@color/main_bottombar_text_selector"
-            android:drawableTop="@drawable/main_bottombar_icon_home_selector"/>
-        
-        <kale.ui.view.BottomTab
+            android:layout_weight="1"
+            app:hintEnable="false"
+            app:drawableTop="@drawable/main_bottombar_icon_home_selector"
+            app:tabText="tab02"/>
+
+        <kale.bottomtab.view.BottomTab
             android:id="@+id/tab_03"
+            style="@style/bottomTab"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="tab03"
-            android:textColor="@color/main_bottombar_text_selector"
-            android:drawableTop="@drawable/main_bottombar_icon_home_selector"/>
-        
-        <kale.ui.view.BottomTab
+            android:layout_weight="1"
+            app:drawableTop="@drawable/main_bottombar_icon_home_selector"
+            app:tabText="tab03"/>
+
+        <kale.bottomtab.view.BottomTab
             android:id="@+id/tab_04"
+            style="@style/bottomTab"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="tab04"
-            android:textColor="@color/main_bottombar_text_selector"
-            android:drawableTop="@drawable/main_bottombar_icon_home_selector"/>
-        
-    </kale.ui.view.BottomTabGroup>
-    
-    
+            android:layout_weight="1"
+            app:drawableTop="@drawable/main_bottombar_icon_home_selector"
+            app:tabText="tab04"/>
+
+    </kale.bottomtab.view.BottomTabGroup>
+
+
 </RelativeLayout>
