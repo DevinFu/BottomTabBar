@@ -16,7 +16,7 @@
 
     ```  
 	dependencies {
-	        compile 'com.github.tianzhijiexian:BottomTabBar:1.0.1'
+	        compile 'com.frozy:bottombar:1.0'
 	}
     ```  
 
